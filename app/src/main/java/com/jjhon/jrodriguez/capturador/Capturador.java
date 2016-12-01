@@ -1,6 +1,7 @@
 package com.jjhon.jrodriguez.capturador;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -25,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ public class Capturador extends AppCompatActivity {
     Button guardar;
     RequestQueue requestQueue;
     private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar.php";
+    private int PICK_IMAGE_REQUEST = 1;
     StringRequest stringRequest;
 
     @Override
@@ -66,7 +69,7 @@ public class Capturador extends AppCompatActivity {
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 );
                 imagenIntent.setType("image/*");
-                startActivityForResult(imagenIntent,100);
+                startActivityForResult(imagenIntent,PICK_IMAGE_REQUEST);
             }
         });
 
@@ -82,9 +85,19 @@ public class Capturador extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            Uri path = data.getData();
-            colocarImagen.setImageURI(path);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+
+                //ImageView imageView = (ImageView) findViewById(R.id.imagen);
+                colocarImagen.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
