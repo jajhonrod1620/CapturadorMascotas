@@ -1,6 +1,10 @@
 package com.jjhon.jrodriguez.capturador;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -9,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +33,9 @@ public class CapturaEvento extends AppCompatActivity {
     Button guardar;
     RequestQueue requestQueue;
     private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar_evento.php";
+    private int PICK_IMAGE_REQUEST = 1;
     StringRequest stringRequest;
+    ImageView subirImagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,10 @@ public class CapturaEvento extends AppCompatActivity {
         titulo = (EditText)findViewById(R.id.txtTitulo);
         descripcion = (EditText)findViewById(R.id.txtDescripcion);
         fecha = (EditText)findViewById(R.id.txtFecha);
+        peso = (EditText)findViewById(R.id.txtPeso);
+        guardar = (Button)findViewById(R.id.guarda_evento);
+        subirImagen = (ImageView)findViewById(R.id.subirimagen);
+
         fecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -46,9 +58,17 @@ public class CapturaEvento extends AppCompatActivity {
                 }
             }
         });
-        peso = (EditText)findViewById(R.id.txtPeso);
-        guardar = (Button)findViewById(R.id.guarda_evento);
-        
+        subirImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imagenIntent = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                );
+                imagenIntent.setType("image/*");
+                startActivityForResult(imagenIntent,PICK_IMAGE_REQUEST);
+            }
+        });
         requestQueue = Volley.newRequestQueue(this);
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +76,23 @@ public class CapturaEvento extends AppCompatActivity {
                 guardarEvento();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+                subirImagen.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void guardarEvento() {
