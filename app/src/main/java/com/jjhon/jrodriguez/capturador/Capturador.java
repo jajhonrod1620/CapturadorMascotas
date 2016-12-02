@@ -49,6 +49,10 @@ public class Capturador extends AppCompatActivity {
         txtTipo = (EditText) findViewById(R.id.txtTipo);
         txtRaza = (EditText) findViewById(R.id.txtRaza);
         txtFecha = (EditText) findViewById(R.id.txtFechaNac);
+        txtDescripcion = (EditText) findViewById(R.id.txtDescripcion);
+        colocarImagen = (ImageView)findViewById(R.id.colocarimagen);
+        guardar = (Button) findViewById(R.id.btnguardar);
+
         txtFecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -57,9 +61,6 @@ public class Capturador extends AppCompatActivity {
                 }
             }
         });
-        txtDescripcion = (EditText) findViewById(R.id.txtDescripcion);
-        colocarImagen = (ImageView)findViewById(R.id.colocarimagen);
-        guardar = (Button) findViewById(R.id.btnguardar);
 
         colocarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,8 +93,6 @@ public class Capturador extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
-
-                //ImageView imageView = (ImageView) findViewById(R.id.imagen);
                 colocarImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
