@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,9 +34,11 @@ public class CapturaEvento extends AppCompatActivity {
     EditText titulo, descripcion, fecha, peso;
     Button guardar;
     RequestQueue requestQueue;
-    private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar_evento.php";
+    //private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar_evento.php";
+    private static final String URL = "http://192.168.0.7/agendamascotas/insertar_evento.php";
     private int PICK_IMAGE_REQUEST = 1;
     StringRequest stringRequest;
+    private Bitmap bitmap;
     ImageView subirImagen;
 
     @Override
@@ -86,13 +90,21 @@ public class CapturaEvento extends AppCompatActivity {
             Uri uri = data.getData();
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
                 subirImagen.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
 
     private void guardarEvento() {
@@ -115,12 +127,14 @@ public class CapturaEvento extends AppCompatActivity {
         }){
             @Override
             protected Map<String,String> getParams() throws AuthFailureError {
+                String uploadImage = getStringImage(bitmap);
                 HashMap<String,String> envio = new HashMap<>();
                 envio.put("mascota","7");
                 envio.put("titulo",titulo.getText().toString());
                 envio.put("fecha_even",fecha.getText().toString());
                 envio.put("peso",peso.getText().toString());
                 envio.put("descripcion",descripcion.getText().toString());
+                envio.put("url_imagen",uploadImage);
                 return envio;
             }
         };
