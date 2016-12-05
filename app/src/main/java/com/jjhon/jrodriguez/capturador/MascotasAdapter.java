@@ -2,6 +2,7 @@ package com.jjhon.jrodriguez.capturador;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.Myvist
         holder.petNombre.setText(miPet.get(position).getNombreMascota());
         Glide.with(contexto).
             load(miUrl+miPet.get(position).getUrlImagen()).into(holder.petImagen);
+
         holder.petImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -86,7 +86,8 @@ public class ListaMascotas extends AppCompatActivity {
                         JSONObject objeto = response.getJSONObject(i);
                         String urlImagen = objeto.getString("urlimagen");
                         String nombreMascota = objeto.getString("nombre");
-                        miMascota.add(new Mascotas(nombreMascota, "", "", urlImagen));
+                        String idMascota = objeto.getString("idmascota");
+                        miMascota.add(new Mascotas(idMascota,nombreMascota, "", "", urlImagen));
 
                     } catch (JSONException e) {
                         Toast.makeText(getApplicationContext(),""+e, Toast.LENGTH_LONG).show();

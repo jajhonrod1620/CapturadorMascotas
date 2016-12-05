@@ -4,12 +4,14 @@ package com.jjhon.jrodriguez.capturador;
  * Created by jrodriguez on 5/12/16.
  */
 public class Mascotas {
+    private String idMascota;
     private String nombreMascota;
     private String raza;
     private String fechaNac;
     private String urlImagen;
 
-    public Mascotas(String nombreMascota, String raza, String fechaNac, String urlImagen) {
+    public Mascotas(String idMascota, String nombreMascota, String raza, String fechaNac, String urlImagen) {
+        this.idMascota = idMascota;
         this.nombreMascota = nombreMascota;
         this.raza = raza;
         this.fechaNac = fechaNac;
@@ -22,6 +24,14 @@ public class Mascotas {
 
     public void setNombreMascota(String nombreMascota) {
         this.nombreMascota = nombreMascota;
+    }
+
+    public String getIdMascota() {
+        return idMascota;
+    }
+
+    public void setIdMascota(String idMascota) {
+        this.idMascota = idMascota;
     }
 
     public String getRaza() {
@@ -51,7 +61,8 @@ public class Mascotas {
     @Override
     public String toString() {
         return "Mascotas{" +
-                "nombreMascota='" + nombreMascota + '\'' +
+                "idMascota='" + idMascota + '\'' +
+                ", nombreMascota='" + nombreMascota + '\'' +
                 ", raza='" + raza + '\'' +
                 ", fechaNac='" + fechaNac + '\'' +
                 ", urlImagen='" + urlImagen + '\'' +
