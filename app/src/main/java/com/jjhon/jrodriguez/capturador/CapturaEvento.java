@@ -35,12 +35,14 @@ public class CapturaEvento extends AppCompatActivity {
     Button guardar;
     RequestQueue requestQueue;
     //private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar_evento.php";
-    private static final String URL = "http://192.168.0.7/agendamascotas/insertar_evento.php";
+    //private static final String URL = "http://192.168.0.7/agendamascotas/insertar_evento.php";
+    private static final String URL = "http://172.17.2.51/agendamascotas/insertar_evento.php";
+
     private int PICK_IMAGE_REQUEST = 1;
     StringRequest stringRequest;
     private Bitmap bitmap;
     ImageView subirImagen;
-
+    String llave;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +55,7 @@ public class CapturaEvento extends AppCompatActivity {
         peso = (EditText)findViewById(R.id.txtPeso);
         guardar = (Button)findViewById(R.id.guarda_evento);
         subirImagen = (ImageView)findViewById(R.id.subirimagen);
+        llave=getIntent().getExtras().getString("llave");
 
         fecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

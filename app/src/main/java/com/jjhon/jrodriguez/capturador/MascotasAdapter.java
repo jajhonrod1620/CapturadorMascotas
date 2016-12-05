@@ -22,7 +22,8 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.Myvist
     private Context contexto;
     private ArrayList<Mascotas> miPet;
     //private String miUrl = "http://192.168.0.7/agendamascotas/";
-    private String miUrl = "http://192.168.2.132:4568/agendamascotas/";
+    //private String miUrl = "http://192.168.2.132:4568/agendamascotas/";
+    private String miUrl = "http://172.17.2.51/agendamascotas/";
 
     public MascotasAdapter(Context contexto, ArrayList<Mascotas> miPet) {
         this.contexto = contexto;
@@ -36,7 +37,7 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.Myvist
     }
 
     @Override
-    public void onBindViewHolder(Myvistaholder holder, int position) {
+    public void onBindViewHolder(Myvistaholder holder, final int position) {
         holder.petNombre.setText(miPet.get(position).getNombreMascota());
         Glide.with(contexto).
             load(miUrl+miPet.get(position).getUrlImagen()).into(holder.petImagen);
@@ -44,7 +45,11 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.Myvist
         holder.petImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                contexto.startActivity(new Intent(contexto,CapturaEvento.class));
+                Intent intent= new Intent(contexto.getApplicationContext(),CapturaEvento.class);
+                intent.putExtra("id",miPet.get(position).getIdMascota());
+                contexto.startActivity(intent);
+                //Intent intent = new Intent(contexto.getApplicationContext());
+                //contexto.startActivity(new Intent(contexto,CapturaEvento.class));
             }
         });
 

@@ -31,7 +31,8 @@ import java.util.ArrayList;
 public class ListaMascotas extends AppCompatActivity {
 
     //private static final String url = "http://192.168.0.7/agendamascotas/consulta_mascota.php";
-    private static final String url = "http://192.168.2.132:4568/agendamascotas/consulta_mascota.php";
+    //private static final String url = "http://192.168.2.132:4568/agendamascotas/consulta_mascota.php";
+    private static final String url = "http://172.17.2.51/agendamascotas/consulta_mascota.php";
     private RecyclerView recyclerView;
     private MascotasAdapter adaptador;
     private ArrayList<Mascotas> miMascota = new ArrayList<>();

@@ -38,7 +38,8 @@ public class Capturador extends AppCompatActivity {
     Button guardar;
     RequestQueue requestQueue;
     //private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar.php";
-    private static final String URL = "http://192.168.0.7/agendamascotas/insertar.php";
+    //private static final String URL = "http://192.168.0.7/agendamascotas/insertar.php";
+    private static final String URL = "http://172.17.2.51/agendamascotas/insertar.php";
     private int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap;
     StringRequest stringRequest;
