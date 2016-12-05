@@ -5,4 +5,5 @@
     <string name="guardar_mascota">Guardar</string>
     <string name="guardar_evento">Guardar Evento</string>
     <string name="title_activity_inicio">Inicio</string>
+    <string name="title_activity_logueo">Logueo</string>
 </resources>

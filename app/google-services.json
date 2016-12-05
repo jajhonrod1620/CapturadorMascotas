@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "566662386720",
+    "firebase_url": "https://agendamascotas.firebaseio.com",
+    "project_id": "agendamascotas",
+    "storage_bucket": "agendamascotas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566662386720:android:a336f15ff6a9757e",
+        "android_client_info": {
+          "package_name": "com.jjhon.jrodriguez.capturador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566662386720-o5d9lmc6aup9g7idqq22sreoutu8mudi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jjhon.jrodriguez.capturador",
+            "certificate_hash": "5B77B329043F847D8AD624DF95A8CEB8A8E1E77F"
+          }
+        },
+        {
+          "client_id": "566662386720-bnbo5htamd6vtnljftg4cmjvr6s6rco0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVYQ3JkPCqlwLt5N2Y_hQt4C4qFpi862k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566662386720-bnbo5htamd6vtnljftg4cmjvr6s6rco0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
