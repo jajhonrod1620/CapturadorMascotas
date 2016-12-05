@@ -15,22 +15,28 @@
             android:name=".Logueo"
             android:label="@string/title_activity_logueo"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Inicio"
-            android:label="AgendaMascotas"/>
+            android:label="AgendaMascotas" />
         <activity
             android:name=".Capturador"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CapturaEvento"
             android:label="@string/title_activity_captura_evento"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListaMascotas"
+            android:label="@string/title_activity_lista_mascotas"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

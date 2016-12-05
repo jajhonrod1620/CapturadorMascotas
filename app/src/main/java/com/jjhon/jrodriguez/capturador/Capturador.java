@@ -60,9 +60,9 @@ public class Capturador extends AppCompatActivity {
         txtFecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-                if(hasFocus){
-                    showDatePickerDialog(view);
-                }
+            if(hasFocus){
+                showDatePickerDialog(view);
+            }
             }
         });
 

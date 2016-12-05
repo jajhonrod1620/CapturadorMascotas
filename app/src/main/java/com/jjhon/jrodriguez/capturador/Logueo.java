@@ -52,7 +52,7 @@ public class Logueo extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() !=null){
-                    startActivity(new Intent(Logueo.this, Inicio.class));
+                    startActivity(new Intent(Logueo.this, ListaMascotas.class));
                 }
 
             }
