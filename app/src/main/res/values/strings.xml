@@ -8,5 +8,6 @@
     <string name="title_activity_logueo">Logueo</string>
     <string name="title_activity_lista_mascotas">ListaMascotas</string>
     <string name="crea_mascota">Crear Mascotas</string>
+    <string name="title_activity_lista_eventos">ListaEventos</string>
 
 </resources>

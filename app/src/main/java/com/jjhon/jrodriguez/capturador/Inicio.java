@@ -15,8 +15,8 @@ public class Inicio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio);
 
-        mascota = (Button)findViewById(R.id.btnMascota);
-        evento = (Button)findViewById(R.id.btnEvento);
+        //mascota = (Button)findViewById(R.id.btnMascota);
+        //evento = (Button)findViewById(R.id.btnEvento);
 
         mascota.setOnClickListener(new View.OnClickListener() {
             @Override

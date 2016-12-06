@@ -45,7 +45,7 @@ public class MascotasAdapter extends RecyclerView.Adapter<MascotasAdapter.Myvist
         holder.petImagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(contexto.getApplicationContext(),CapturaEvento.class);
+                Intent intent= new Intent(contexto.getApplicationContext(),ListaEventos.class);
                 intent.putExtra("id",miPet.get(position).getIdMascota());
                 contexto.startActivity(intent);
                 //Intent intent = new Intent(contexto.getApplicationContext());

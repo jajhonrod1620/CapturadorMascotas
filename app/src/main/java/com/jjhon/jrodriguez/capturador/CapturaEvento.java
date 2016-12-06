@@ -42,7 +42,7 @@ public class CapturaEvento extends AppCompatActivity {
     StringRequest stringRequest;
     private Bitmap bitmap;
     ImageView subirImagen;
-    String llave;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,6 @@ public class CapturaEvento extends AppCompatActivity {
         peso = (EditText)findViewById(R.id.txtPeso);
         guardar = (Button)findViewById(R.id.guarda_evento);
         subirImagen = (ImageView)findViewById(R.id.subirimagen);
-        llave=getIntent().getExtras().getString("llave");
 
         fecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

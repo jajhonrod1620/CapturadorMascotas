@@ -14,8 +14,7 @@
         <activity
             android:name=".Logueo"
             android:label="@string/title_activity_logueo"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Inicio"
             android:label="AgendaMascotas" />
@@ -37,6 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ListaEventos"
+            android:label="@string/title_activity_lista_eventos"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
