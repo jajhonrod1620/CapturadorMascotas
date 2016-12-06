@@ -19,9 +19,6 @@ import java.util.ArrayList;
 public class EventosAdpater extends RecyclerView.Adapter<EventosAdpater.Myvistaholder> {
     private Context contexto;
     private ArrayList<Evento> miEvento;
-    //private String miUrl = "http://192.168.0.7/agendamascotas/";
-    //private String miUrl = "http://192.168.2.132:4568/agendamascotas/";
-    private String miUrl = "http://172.17.2.51/agendamascotas/";
 
     public EventosAdpater(Context contexto, ArrayList<Evento> miEvento) {
         this.contexto = contexto;

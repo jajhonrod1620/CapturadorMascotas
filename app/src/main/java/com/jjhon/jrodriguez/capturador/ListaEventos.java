@@ -1,7 +1,9 @@
 package com.jjhon.jrodriguez.capturador;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -33,7 +35,8 @@ import java.util.Map;
 
 public class ListaEventos extends AppCompatActivity {
 
-    private static final String url = "http://172.17.2.51/agendamascotas/consulta_evento.php";
+    private String url;
+    private static final String programa = "consulta_evento.php";
     private RecyclerView recyclerView;
     private EventosAdpater adaptador;
     private ArrayList<Evento> miEvento = new ArrayList<>();
@@ -43,12 +46,19 @@ public class ListaEventos extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MiAplicacion mApp = ((MiAplicacion)getApplicationContext());
+        url = mApp.getMiURL();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_eventos);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        llave=getIntent().getExtras().getString("llave");
+        llave=getIntent().getExtras().getString("idMascota");
+        SharedPreferences llaveMascota =
+                getSharedPreferences("identificador", Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = llaveMascota.edit();
+        editor.putString("idMascota", llave);
+        editor.commit();
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         mostrarInfo();
     }
@@ -57,15 +67,19 @@ public class ListaEventos extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
 
-        inflater.inflate(R.menu.main_activity_bar, menu);
+        inflater.inflate(R.menu.evento_activity_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_mascota:
-                startActivity(new Intent(getApplicationContext(),Capturador.class));
+            case R.id.action_evento:
+                startActivity(new Intent(getApplicationContext(),CapturaEvento.class));
+                return true;
+            case R.id.action_cerrar:
+                finish();
+                startActivity(new Intent(getApplicationContext(),Logueo.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -79,10 +93,11 @@ public class ListaEventos extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         adaptador = new EventosAdpater(this,miEvento);
-        recyclerView.setAdapter(adaptador);
+        //recyclerView.setAdapter(adaptador);
 
         //JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
-        StringRequest request= new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest request=
+            new StringRequest(Request.Method.POST, url+programa, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -94,52 +109,24 @@ public class ListaEventos extends AppCompatActivity {
                         String titEvento = objeto.getString("titulo");
                         miEvento.add(new Evento("", "", titEvento, descEvento, "", "", urlImagen));
                     }
-                    //recyclerView.setAdapter(adapatador);
+                    recyclerView.setAdapter(adaptador);
                     System.out.println("datos " + object + " Cantidad: " + object.length());
                 } catch (JSONException e) {
                     System.out.println("error " + e);
                 }
             }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    System.out.println("error "+error);
-                }
-            }){
-                protected Map<String,String> getParams(){
-                    HashMap<String,String> hashMap= new HashMap<String, String>();
-                    hashMap.put("mascota",llave);
-                    return hashMap;
-                }
-            };
-
-            /*
-            @Override
-
-            public void onResponse(JSONArray response) {
-                progressDialog.dismiss();
-                for(int i=0; i<response.length();i++){
-                    try {
-                        JSONObject objeto = response.getJSONObject(i);
-                        String urlImagen = objeto.getString("url_imagen");
-                        String descEvento = objeto.getString("descripcion");
-                        String titEvento = objeto.getString("titulo");
-                        miEvento.add(new Evento("", "", titEvento,  descEvento, "",  "", urlImagen));
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getApplicationContext(),""+e, Toast.LENGTH_LONG).show();
-                        e.printStackTrace();
-                    }
-                }
-                adaptador.notifyDataSetChanged();
-            }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                System.out.println("error "+error);
             }
-        });*/
-
+        }){
+            protected Map<String,String> getParams(){
+                HashMap<String,String> hashMap= new HashMap<String, String>();
+                hashMap.put("mascota",llave);
+                return hashMap;
+            }
+        };
         requestQueue.add(request);
     }
 }

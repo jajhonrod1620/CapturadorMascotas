@@ -37,9 +37,9 @@ public class Capturador extends AppCompatActivity {
     ImageView colocarImagen;
     Button guardar;
     RequestQueue requestQueue;
-    //private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar.php";
-    //private static final String URL = "http://192.168.0.7/agendamascotas/insertar.php";
-    private static final String URL = "http://172.17.2.51/agendamascotas/insertar.php";
+
+    private static final String programa = "insertar.php";
+    private String URL;
     private int PICK_IMAGE_REQUEST = 1;
     private Bitmap bitmap;
     StringRequest stringRequest;
@@ -50,6 +50,8 @@ public class Capturador extends AppCompatActivity {
         setContentView(R.layout.activity_capturador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        URL = ((MiAplicacion) this.getApplication()).getMiURL()+ programa;
+
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         txtTipo = (EditText) findViewById(R.id.txtTipo);
         txtRaza = (EditText) findViewById(R.id.txtRaza);
@@ -61,9 +63,9 @@ public class Capturador extends AppCompatActivity {
         txtFecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
-            if(hasFocus){
-                showDatePickerDialog(view);
-            }
+                if(hasFocus){
+                    showDatePickerDialog(view);
+                }
             }
         });
 

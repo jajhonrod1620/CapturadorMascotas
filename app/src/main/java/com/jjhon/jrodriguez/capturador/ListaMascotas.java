@@ -33,7 +33,8 @@ public class ListaMascotas extends AppCompatActivity {
     //private static final String url = "http://192.168.0.7/agendamascotas/consulta_mascota.php";
     //private static final String url = "http://192.168.2.132:4568/agendamascotas/consulta_mascota.php";
     //private static final String url = "http://172.17.2.51/agendamascotas/consulta_mascota.php";
-    private static final String url = "http://172.17.2.51/agendamascotas/consulta_mascota.php";
+    private String url;
+    private static final String programa = "consulta_mascota.php";
 
     private RecyclerView recyclerView;
     private MascotasAdapter adaptador;
@@ -66,14 +67,17 @@ public class ListaMascotas extends AppCompatActivity {
             case R.id.action_mascota:
                 startActivity(new Intent(getApplicationContext(),Capturador.class));
                 return true;
+            case R.id.action_cerrar:
+                finish();
+                startActivity(new Intent(getApplicationContext(),Logueo.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     public void mostrarInfo() {
-        MiAplicacion mApp = ((MiAplicacion) getApplicationContext());
-        String url = mApp.getMiURL();
+        url = ((MiAplicacion) this.getApplication()).getMiURL();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando datos...");
         recyclerView=(RecyclerView)findViewById(R.id.listado_mascotas);
@@ -82,7 +86,7 @@ public class ListaMascotas extends AppCompatActivity {
         adaptador = new MascotasAdapter(this,miMascota);
         recyclerView.setAdapter(adaptador);
 
-        JsonArrayRequest request = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
+        JsonArrayRequest request = new JsonArrayRequest(url+programa, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 progressDialog.dismiss();

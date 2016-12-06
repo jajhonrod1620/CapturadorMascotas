@@ -1,6 +1,8 @@
 package com.jjhon.jrodriguez.capturador;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,14 +36,14 @@ public class CapturaEvento extends AppCompatActivity {
     EditText titulo, descripcion, fecha, peso;
     Button guardar;
     RequestQueue requestQueue;
-    //private static final String URL = "http://192.168.2.132:4568/agendamascotas/insertar_evento.php";
-    //private static final String URL = "http://192.168.0.7/agendamascotas/insertar_evento.php";
-    private static final String URL = "http://172.17.2.51/agendamascotas/insertar_evento.php";
+    private String URL; // = "http://172.17.2.51/agendamascotas/insertar_evento.php";
+    private static final String programa = "insertar_evento.php";
 
     private int PICK_IMAGE_REQUEST = 1;
     StringRequest stringRequest;
     private Bitmap bitmap;
     ImageView subirImagen;
+    String idMascota;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,18 @@ public class CapturaEvento extends AppCompatActivity {
         setContentView(R.layout.activity_captura_evento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        URL = ((MiAplicacion) this.getApplication()).getMiURL()+ programa;
         titulo = (EditText)findViewById(R.id.txtTitulo);
         descripcion = (EditText)findViewById(R.id.txtDescripcion);
         fecha = (EditText)findViewById(R.id.txtFecha);
         peso = (EditText)findViewById(R.id.txtPeso);
         guardar = (Button)findViewById(R.id.guarda_evento);
         subirImagen = (ImageView)findViewById(R.id.subirimagen);
+
+        SharedPreferences llave = getSharedPreferences("identificador", Context.MODE_PRIVATE);
+        idMascota = llave.getString("idMascota", "");
+
 
         fecha.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -87,10 +95,10 @@ public class CapturaEvento extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK &&
+            data != null && data.getData() != null) {
 
             Uri uri = data.getData();
-
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 // Log.d(TAG, String.valueOf(bitmap));
@@ -131,7 +139,7 @@ public class CapturaEvento extends AppCompatActivity {
             protected Map<String,String> getParams() throws AuthFailureError {
                 String uploadImage = getStringImage(bitmap);
                 HashMap<String,String> envio = new HashMap<>();
-                envio.put("mascota","7");
+                envio.put("mascota",idMascota);
                 envio.put("titulo",titulo.getText().toString());
                 envio.put("fecha_even",fecha.getText().toString());
                 envio.put("peso",peso.getText().toString());
