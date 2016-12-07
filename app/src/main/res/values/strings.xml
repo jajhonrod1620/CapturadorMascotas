@@ -11,5 +11,7 @@
     <string name="title_activity_lista_eventos">ListaEventos</string>
     <string name="crea_evento">Crear Evento</string>
     <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="title_activity_splash">Splash</string>
+    <string name="agenda_mascota">¡Agenda Mascota!</string>
 
 </resources>
