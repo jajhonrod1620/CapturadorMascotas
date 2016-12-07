@@ -15,7 +15,12 @@
         <activity
             android:name=".Logueo"
             android:label="@string/title_activity_logueo"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Inicio"
             android:label="AgendaMascotas" />
@@ -30,18 +35,10 @@
         <activity
             android:name=".ListaMascotas"
             android:label="@string/title_activity_lista_mascotas"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ListaEventos"
             android:label="@string/title_activity_lista_eventos"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
-
-
 </manifest>
