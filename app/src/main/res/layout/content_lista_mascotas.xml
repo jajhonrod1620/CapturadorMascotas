@@ -12,8 +12,13 @@
     tools:context="com.jjhon.jrodriguez.capturador.ListaMascotas"
     tools:showIn="@layout/activity_lista_mascotas"
     android:orientation="vertical">
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swifeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listado_mascotas" />
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listado_mascotas" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

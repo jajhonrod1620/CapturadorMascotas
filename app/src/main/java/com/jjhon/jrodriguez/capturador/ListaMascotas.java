@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,6 +36,7 @@ public class ListaMascotas extends AppCompatActivity {
     //private static final String url = "http://172.17.2.51/agendamascotas/consulta_mascota.php";
     private String url;
     private static final String programa = "consulta_mascota.php";
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private RecyclerView recyclerView;
     private MascotasAdapter adaptador;
@@ -48,6 +50,15 @@ public class ListaMascotas extends AppCompatActivity {
         setContentView(R.layout.activity_lista_mascotas);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Swipe Refresh Layout
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swifeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mostrarInfo();
+            }
+        });
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         mostrarInfo();
@@ -85,6 +96,7 @@ public class ListaMascotas extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         adaptador = new MascotasAdapter(this,miMascota);
         recyclerView.setAdapter(adaptador);
+        miMascota.clear();
 
         JsonArrayRequest request = new JsonArrayRequest(url+programa, new Response.Listener<JSONArray>() {
             @Override
