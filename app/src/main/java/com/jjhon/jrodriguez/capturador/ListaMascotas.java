@@ -87,6 +87,11 @@ public class ListaMascotas extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     public void mostrarInfo() {
         url = ((MiAplicacion) this.getApplication()).getMiURL();
         progressDialog = new ProgressDialog(this);
